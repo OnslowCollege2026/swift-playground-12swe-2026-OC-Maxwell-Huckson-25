@@ -4,6 +4,11 @@
 @main
 struct SwiftPlayground {
     static func main() {
-        print("Hello, world!")
+        let roomLength = 6.0
+        let roomWidth = 4.5
+        let roomHeight = 2.7
+        let roomArea = roomLength * roomWidth
+        print("The are of the room is \(roomArea) metres²!")
     }
 }
+
