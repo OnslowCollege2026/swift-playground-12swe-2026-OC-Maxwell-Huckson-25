@@ -4,6 +4,17 @@
 @main
 struct SwiftPlayground {
     static func main() {
-        print("Hello, world!")
+        var number = 0
+        let Dimetions: [String] = ["length", "width", "Height"]
+        var gotInput = false
+        while gotInput == false
+        print("Enter room \(String(Dimetions)! + number:)")
+        if let input = readLine(), let length = Double(input) {
+            // store length, do further calculations
+        } else {
+            print("Invaid double")
+
+        gotInput = true
+}
     }
 }
