@@ -4,11 +4,17 @@
 @main
 struct SwiftPlayground {
     static func main() {
-        let roomLength = 6.0
-        let roomWidth = 4.5
-        let roomHeight = 2.7
-        let roomArea = roomLength * roomWidth
-        print("The are of the room is \(roomArea) metres²!")
+        var number = 0
+        let Dimetions: [String] = ["length", "width", "Height"]
+        var gotInput = false
+        while gotInput == false
+        print("Enter room \(String(Dimetions)! + number:)")
+        if let input = readLine(), let length = Double(input) {
+            // store length, do further calculations
+        } else {
+            print("Invaid double")
+
+        gotInput = true
+}
     }
 }
-
