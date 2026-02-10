@@ -37,8 +37,8 @@ struct SwiftPlayground {
             print("Would you like to add a piece of furniture to your room? (y/n)")
             if let imput = readLine(), let response = String(imput) {
                 if response == "y" {
-
-                } elif response == "n" {
+                    print
+                } else if response == "n" {
                     addingFurniture = false
                 }
             } else {
