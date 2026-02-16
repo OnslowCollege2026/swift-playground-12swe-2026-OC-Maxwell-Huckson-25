@@ -1,13 +1,14 @@
 // The Swift Programming Language
 // https://docs.swift.org/swift-book
 
-/// Calculates the area of a room.
+/// Calculates the volume of a room.
 /// - Parameters:
-///   - Length: The rooms length is metres.
-///   - Width: The rooms width is metres.
-/// - Returns: The area of the room in metres.
-func roomArea(length: Double, width: Double) -> Double {
-    return length * width
+///   - Length: The rooms length in metres.
+///   - Width: The rooms width in metres.
+///   - Hight: The rooms volume in metres
+/// - Returns: The volume of the room in metres.
+func roomVolume(length: Double, width: Double, height: Double) -> Double {
+    return length * width * height
 }
 
 @main
