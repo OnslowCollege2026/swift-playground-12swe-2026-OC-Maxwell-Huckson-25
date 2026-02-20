@@ -28,16 +28,40 @@ func menuChoice() -> Int {
 return displayedMenu
 }
 
+func addEggs(currentEggs: Int) -> Int {
+    var gettingResponse = true
+    var eggsAdded = 0
+    print("How many eggs would you like to add")
+    while gettingResponse == true {
+        if let response = readLine(), let eggsAdding = Int(response) {
+            if eggsAdded >= 1 && eggsAdded <= 1000 {
+                eggsAdded = eggsAdding
+                gettingResponse = false
+            } else {
+                print("Please enter a valid amount of eggs you want to add")
+            }
+        }
+    return eggsAdded 
+    }
+}
+
+// func sellEggs() -> Int {
+//     print("how many eggs do you want to add?")
+//     if let response = readLine(), let eggsSold = Int(response) {
+
+//     }
+// }
+
 @main
 struct SwiftPlayground {
     static func main() {
-        print(menuChoice())
-        // var runningEggShop = true
-        // while runningEggShop == true {
-        //     let displayedMenu = menuChoice()
-        //     if displayedMenu == 1 {
-                
-        //     }
-        // }
+        var currentEggs = 0
+        var runningEggShop = true
+        while runningEggShop == true {
+            let displayedMenu = menuChoice()
+            if displayedMenu == 1 {
+                currentEggs = addEggs(currentEggs: currentEggs)
+            }
+        }
     }
 }
