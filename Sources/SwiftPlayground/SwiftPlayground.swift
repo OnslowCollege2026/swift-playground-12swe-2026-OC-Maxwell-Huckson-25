@@ -60,7 +60,7 @@ func sellEggs(currentEggs: Int) -> Int {
 }
 
 /// - Displays the amount of eggs the user has in stock as well as how much they have sold.
-func showStoreInfomation(currentEggs: Int, totalEggsSold: Int) {
+func showStoreInfomation(currentEggs: Int, totalEggsSold: Int, transactionHistoryNumbers: [Int], transactionHistoryType: [String]) {
     print("You currently have \(currentEggs) eggs in stock.")
     print("You have sold a total of \(totalEggsSold) eggs.")
 }
@@ -68,6 +68,8 @@ func showStoreInfomation(currentEggs: Int, totalEggsSold: Int) {
 @main
 struct SwiftPlayground {
     static func main() {
+        var eggsAmount: [Int] = []
+        var eggsGatheredOrSold: [String] = []
         // This variable is used to store the current amount of eggs that the egg shop has in store.
         var currentEggs = 0
         // This variable tracks to total amount of eggs that have been sold.
@@ -81,17 +83,22 @@ struct SwiftPlayground {
             // Checks if the user wants to add eggs.
             if displayedMenu == 1 {
                 // If the user wants to add eggs it runs a function that lets the user add an amount of their choosing.
-                currentEggs = addEggs(currentEggs: currentEggs)
+                let eggsAdded = addEggs(currentEggs: currentEggs)
                 // Checks if the user wants to sell eggs
+                currentEggs = eggsAdded
+                eggsAmount.append(eggsAdded)
+                eggsGatheredOrSold.append("gathered")
             } else if displayedMenu == 2 {
                 // If the user wants to sell eggs it runs a function that lets the user sell an amount of their choosing.
                 let eggsSold = sellEggs(currentEggs: currentEggs)
                 currentEggs = currentEggs - eggsSold
                 totalEggsSold = totalEggsSold + eggsSold
+                eggsAmount.append(eggsSold)
+                eggsGatheredOrSold.append("sold")
                 // Checks if the user wants to have their shop infomation diplayed
             } else if displayedMenu == 3 {
                 // Runs a function that takes the infomation from the variables created earlier 
-                showStoreInfomation(currentEggs: currentEggs, totalEggsSold: totalEggsSold)
+                showStoreInfomation(currentEggs: currentEggs, totalEggsSold: totalEggsSold, transactionHistoryNumbers: eggsAmount, transactionHistoryType: eggsGatheredOrSold)
                 // Checks if the user wants to close the program
             } else if displayedMenu == 4 {
                 // Decalers the variable that keeps the while loop running false so the loop stops running and the program ends.
