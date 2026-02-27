@@ -85,10 +85,16 @@ struct SwiftPlayground {
                 // Checks if the user wants to sell eggs
                 currentEggs = eggsAdded
             } else if displayedMenu == 2 {
-                // If the user wants to sell eggs it runs a function that lets the user sell an amount of their choosing.
-                let eggsSold = sellEggs(currentEggs: currentEggs)
-                currentEggs = currentEggs - eggsSold
-                totalEggsSold = totalEggsSold + eggsSold
+                
+                if currentEggs > 0 {
+                    // If the user wants to sell eggs it runs a function that lets the user sell an amount of their choosing.
+                    let eggsSold = sellEggs(currentEggs: currentEggs)
+                    currentEggs = currentEggs - eggsSold
+                    totalEggsSold = totalEggsSold + eggsSold
+                } else {
+                    print("You don't have any eggs to sell")
+                }
+
                 // Checks if the user wants to have their shop infomation diplayed
             } else if displayedMenu == 3 {
                 // Runs a function that takes the infomation from the variables created earlier 
