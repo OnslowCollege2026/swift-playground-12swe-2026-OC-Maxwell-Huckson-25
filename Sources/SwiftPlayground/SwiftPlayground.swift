@@ -1,38 +1,17 @@
 // The Swift Programming Language
 // https://docs.swift.org/swift-book
 
-
-
-// let temperatures = [
-//     [2, 4, 6, 6],
-//     [8, 10, 12, 36],
-//     [14, 16, 18, 63]
-// ]
-
-// print(temperatures[0])
-// print(temperatures[2][1])
-// print(temperatures[0][2])
-// let rowTwoAverage = (temperatures[1][0] + temperatures[1][1] + temperatures[2][2] + temperatures[2][3])/4
-// print(rowTwoAverage)
-
-
-// let table = [
-//     [2, 4, 6],
-//     [8, 10, 12],
-//     [14, 16, 18]
-// ]
-//         var totalNumbers = 0
-//         for row in table {
-//     for value in row {
-//         print(value)
-//         totalNumbers = totalNumbers + 1
-//     }
-// }
-// print("\(totalNumbers) numbers were printed")
-
 func columnTotal(in table: [[Int]], column: Int) -> Int {
-    guard column >= 0 && column < table.count else { return 0 }
-    return table[column].reduce(0, +)
+    var average = 0
+    var numberAmounts = 0
+    (0...3).forEach { row in
+        if table.indices.contains(row) && table[row].indices.contains(column) {
+            average = average + table[row][column]
+            numberAmounts = numberAmounts + 1
+        }
+    
+    }
+    return average/numberAmounts
 }
 
 @main
@@ -43,7 +22,13 @@ struct SwiftPlayground {
         [2, 4],
         [8, 6, 1],
         [10]
-    ]
+        ]
 
+        var column = 0
+
+        while column <= 3 {
+            print(columnTotal(in: table, column: column))
+            column = column + 1
+        }
     }
 }
