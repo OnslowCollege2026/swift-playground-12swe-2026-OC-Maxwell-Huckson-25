@@ -30,83 +30,20 @@
 // }
 // print("\(totalNumbers) numbers were printed")
 
-let line = "---------"
-
-func total(of matrix: [[Int]]) -> Int {
-    var sum = 0
-    for row in matrix {
-        for value in row {
-            sum += value
-        }
-    }
-    return sum
-}
-
-func rowTotal(in matrix: [[Int]], row: Int) -> Int {
-    guard row > 0 && row < matrix.count else { return 0 }
-    return matrix[row].reduce(0, +)
+func columnTotal(in table: [[Int]], column: Int) -> Int {
+    guard column >= 0 && column < table.count else { return 0 }
+    return table[column].reduce(0, +)
 }
 
 @main
 struct SwiftPlayground {
     static func main() {
-
-        let scores = [
-            [78, 82, 91],
-            [65, 70, 68],
-            [88, 94, 90],
-        ]
-
-        let firstRow = scores[0]
-        let value = scores[2][1]
-        print(firstRow)
-        print(value)
-
-        print(line)
-
-        let grid = [
-            [10, 20, 30],
-            [40, 50, 60],
-        ]
-
-        print(grid[0][0])
-        print(grid[1][2])
-
-        print(line)
-
-        let gridLoop = [
-            [1, 2, 3],
-            [4, 5, 6],
-        ]
-
-        for row in gridLoop {
-            for valueLoop in row {
-                print(valueLoop)
-            }
-        }
-
-        print(line)
-
-        let marks = [
-            [5, 4, 3],
-            [2, 4, 5],
-        ]
-
-        print(total(of: marks))
-
-        print(line)
-
-        let tableB = [
-            [2, 4, 6],
-            [8, 10, 12],
-            [14, 16, 18],
-        ]
-
-        for row in tableB {
-            for valueB in row {
-                print(valueB)
-            }
-        }
+        let table = [
+        [3, 5, 7, 9],
+        [2, 4],
+        [8, 6, 1],
+        [10]
+    ]
 
     }
 }
