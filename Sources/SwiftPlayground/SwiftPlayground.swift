@@ -45,7 +45,8 @@ func menuChoice() -> Int {
 func addEggs(currentEggs: Int) -> Int {
     print("How many eggs would you like to add? You have available storage for up to \(1000 - currentEggs) eggs.")
     let eggsAdded = getUserResponse(errorMesage: "That is not a valid amount of eggs. You have available storage for up to \(1000 - currentEggs) eggs. How many eggs would you like to add?", minimumNumber: 1, maximumNumber: 1000 - currentEggs)
-    print("Successfully added eggs.")
+    print("Successfully added \(eggsAdded) eggs.")
+    print("You currently have \(currentEggs + eggsAdded) eggs.")
     return eggsAdded 
 }
 
