@@ -25,6 +25,9 @@ struct SwiftPlayground {
         // Allow the user to make a certain number of guesses.
         var progress = 1
         while progress <= maximumGuesses {
+            // Print the updated guesses board, then go to the next move.
+            printBoard(guesses)
+
             // Ask for the row and column number.
             print("\(progress): Please enter a row number, press Enter, then a column number: ")
             
@@ -38,13 +41,16 @@ struct SwiftPlayground {
                 continue
             }
             
+            let oldGuesses = guesses
             // By this point in the code, the row and col must be valid integers.
             // Use processGuess to check that they are also valid guesses.
-            guesses = processGuess(row: row, col: col, ocean: ocean, guesses: guesses)
+            let newGuesses = processGuess(row: row, col: col, ocean: ocean, guesses: guesses)
             
-            // Print the updated guesses board, then go to the next move.
-            printBoard(guesses)
-            progress = progress + 1
+    if oldGuesses != newGuesses {
+        progress = progress + 1
+        
+    }
+
         }
     }
 }
@@ -81,7 +87,7 @@ func processGuess(row: Int, col: Int, ocean: [[String]], guesses: [[String]]) ->
     
     // Make sure that the user hasn't already guessed the position.
     // If not, exit this function early.
-    guard guesses[row - 1][col - 1] != "O" || guesses[row - 1][col - 1] != "X" else {
+    guard guesses[row - 1][col - 1] != "O" && guesses[row - 1][col - 1] != "X" else {
         print("You have already guessed that position. Try again.")
         return guesses
     }
