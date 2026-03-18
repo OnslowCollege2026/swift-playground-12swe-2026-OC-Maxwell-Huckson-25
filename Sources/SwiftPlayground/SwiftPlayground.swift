@@ -88,7 +88,7 @@ func processGuess(row: Int, col: Int, ocean: [[String]], guesses: [[String]]) ->
     
     // Make sure that the user hasn't missed the battleship.
     // If not, return an updated guesses table including the miss.
-    guard guesses[row - 1][col - 1] == "~" else {
+    guard ocean[row - 1][col - 1] == "X" else {
         print("MISS!")
         var newGuesses = guesses
         newGuesses[row - 1][col - 1] = "O"
