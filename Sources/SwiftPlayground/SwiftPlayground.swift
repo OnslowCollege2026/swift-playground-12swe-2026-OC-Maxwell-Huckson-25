@@ -1,49 +1,62 @@
 // The Swift Programming Language
 // https://docs.swift.org/swift-book
 
+import Foundation
+
 
 @main
 struct SwiftPlayground {
     static func main() {
-        let dimensions: [String] = ["length", "width", "Height"]
-        var dimensionValues: [Double] = []
-        var currentDimetion = 0
-        var addingFurniture = true
-        while currentDimetion < 3 {
-            print("Enter room \(dimensions[currentDimetion]) in metres.")
-            if let input = readLine(), let dimension = Double(input) {
-                if dimension >= 1{
-                    dimensionValues.append(dimension)
-                currentDimetion = currentDimetion + 1
-                } else {
-                    print("Invaid response, please enter a positive number")
-                }
+        // Costants and variables.
+        /// The vocabulary to test the user on
+        /// Each inner array contains the the correct answer in spanish, and then three incorrect answers.
+        let vocabulary = [
+            ["Hola", "Bonjour", "Gracias", "Buenas tardes"],
+            ["Adiós", "Sabado", "Mayo", "Gracias"], 
+            ["Gracias", "Bonjour", "Hola", "Salud "],
+            ["¿Cómo está?", "No entiendo", "¡Buen provecho!", "Gracias"],
+            ["Negro", "Morado", "Blanco", "Azul"],
+        ]
 
-            } else {
-            print("Invaid response, please enter a positive number")
+        /// Contains the english traslation of the correct answer.
+        let englishWord: [String] = ["Hello", "Goodbye", "Thank you", "How are you?", "Black"]
 
-            }
+
+
+        /// The indices of the questions that the user got wrong.
+        var incorrectIndices: [Int] = []
+
+        /// The number of questions that the user got wrong first time wrong
+        var incorrectCount = 0
+
+        /// The number of question the the user got right
+        var count = 0
+
+        /// The english words index numbers
+        var questionNumber = 0
+        
+        // Loop until all the vocabulary questions have been asked.
+        vocabulary.forEach { array in
+            
+            // Show the question.
+            let shuffledQuestions = array.shuffled()
+
+            // Prints the question 
+            print("How do you say \(englishWord[questionNumber]) in spanish?")
+
+            // Present possible answers.
+            print("1: \(shuffledQuestions[0]) 2: \(shuffledQuestions[1]) 3: \(shuffledQuestions[2]) 4: \(shuffledQuestions[3])")
+
+            if let response = readLine(), let Int(intResponse) = response
+
+            // Check the if the user guessed the correct answer.
+
+
+            // If not, make a note of the question to ask again later.
+
+            questionNumber = questionNumber + 1
         }
 
-        let roomArea = dimensionValues[0] * dimensionValues[1]
 
-        let roomVolume = roomArea * dimensionValues[2] 
-
-        print("The area of your room is \(roomArea)m².")
-
-        print("The volume of your room is \(roomVolume)m³.")
-
-        while addingFurniture == true {
-            print("Would you like to add a piece of furniture to your room? (y/n)")
-            if let imput = readLine(), let response = String(imput) {
-                if response == "y" {
-                    print
-                } else if response == "n" {
-                    addingFurniture = false
-                }
-            } else {
-                print("Invalid imput. If you want to add a piece of furniture type y, if not type n")
-            }
-        }
     }
 }
