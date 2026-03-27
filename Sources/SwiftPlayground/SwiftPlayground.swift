@@ -10,12 +10,12 @@ struct SwiftPlayground {
         // Costants and variables.
         /// The vocabulary to test the user on
         /// Each inner array contains the the correct answer in spanish, and then three incorrect answers.
-        let vocabulary = [
+        var vocabulary = [
             ["Hola", "Bonjour", "Gracias", "Buenas tardes"],
             ["Adiós", "Sabado", "Mayo", "Gracias"], 
             ["Gracias", "Bonjour", "Hola", "Salud "],
             ["¿Cómo está?", "No entiendo", "¡Buen provecho!", "Gracias"],
-            ["Negro", "Morado", "Blanco", "Azul"],
+            ["negra", "Morado", "Blanco", "Azul"],
         ]
 
         /// Contains the english traslation of the correct answer.
@@ -49,12 +49,15 @@ struct SwiftPlayground {
             // Present possible answers.
             print("1: \(shuffledQuestions[0]). 2: \(shuffledQuestions[1]). 3: \(shuffledQuestions[2]). 4: \(shuffledQuestions[3]).")
 
+            // Check the if the user guessed the correct answer.
             if let response = readLine(), let intResponse = Int(response) {
-                guard shuffledQuestions[intResponse-1] == array[0] else {
-                    print("You got it wrong, dumbass")
-                    throw
+                if shuffledQuestions[intResponse-1] == array[0] {
+                    print("Correct")
+                } else {
+                    print("Incorrect, the correct answer was \(array[0])")
+                    vocabulary.append(array)
                 }
-                // Check the if the user guessed the correct answer.
+                
 
 
                 // If not, make a note of the question to ask again later.
@@ -62,7 +65,7 @@ struct SwiftPlayground {
                 questionNumber = questionNumber + 1
             }
         }
-
+    print("You got them all right, congratulations!")
 
     }
 }
