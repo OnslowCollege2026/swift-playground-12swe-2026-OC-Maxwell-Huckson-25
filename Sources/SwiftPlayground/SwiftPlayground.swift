@@ -3,10 +3,10 @@
 
 import Foundation
 
-
 @main
 struct SwiftPlayground {
     static func main() {
+        
         // Costants and variables.
         /// The vocabulary to test the user on
         /// Each inner array contains the the correct answer in spanish, and then three incorrect answers.
@@ -35,6 +35,8 @@ struct SwiftPlayground {
         /// The english words index numbers
         var questionNumber = 0
         
+        print("This code runs")
+
         // Loop until all the vocabulary questions have been asked.
         vocabulary.forEach { array in
             
@@ -45,16 +47,20 @@ struct SwiftPlayground {
             print("How do you say \(englishWord[questionNumber]) in spanish?")
 
             // Present possible answers.
-            print("1: \(shuffledQuestions[0]) 2: \(shuffledQuestions[1]) 3: \(shuffledQuestions[2]) 4: \(shuffledQuestions[3])")
+            print("1: \(shuffledQuestions[0]). 2: \(shuffledQuestions[1]). 3: \(shuffledQuestions[2]). 4: \(shuffledQuestions[3]).")
 
-            if let response = readLine(), let Int(intResponse) = response
+            if let response = readLine(), let intResponse = Int(response) {
+                guard shuffledQuestions[intResponse-1] == array[0] else {
+                    print("You got it wrong, dumbass")
+                    throw
+                }
+                // Check the if the user guessed the correct answer.
 
-            // Check the if the user guessed the correct answer.
 
+                // If not, make a note of the question to ask again later.
 
-            // If not, make a note of the question to ask again later.
-
-            questionNumber = questionNumber + 1
+                questionNumber = questionNumber + 1
+            }
         }
 
 
