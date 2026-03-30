@@ -35,7 +35,8 @@ struct SwiftPlayground {
         /// The english words index numbers
         var questionNumber = 0
         
-        print("This code runs")
+        var questionAmount = 10
+
 
         // Loop until all the vocabulary questions have been asked.
         vocabulary.forEach { array in
@@ -48,22 +49,26 @@ struct SwiftPlayground {
 
             // Present possible answers.
             print("1: \(shuffledQuestions[0]). 2: \(shuffledQuestions[1]). 3: \(shuffledQuestions[2]). 4: \(shuffledQuestions[3]).")
-
-            // Check the if the user guessed the correct answer.
-            if let response = readLine(), let intResponse = Int(response) {
+            var gettingResponse = true
+            while gettingResponse == true {
+                            if let response = readLine(), let intResponse = Int(response) {
                 if shuffledQuestions[intResponse-1] == array[0] {
                     print("Correct")
+                    gettingResponse = false
                 } else {
                     print("Incorrect, the correct answer was \(array[0])")
-                    vocabulary.append(array)
+                    incorrectIndices.append(questionNumber)
+                    gettingResponse = false
                 }
                 
-
-
                 // If not, make a note of the question to ask again later.
-
                 questionNumber = questionNumber + 1
+            } else {
+                print("Please enter a number the correlates to a response")
             }
+            }
+            // Check the if the user guessed the correct answer.
+
         }
     print("You got them all right, congratulations!")
 
