@@ -5,35 +5,34 @@
 
 import Foundation
 
-func askQuestions (vocabulary: [[String]], englishWord: [String]) {
+func askQuestions (vocabulary: [[String]], englishWord: [String], questionNumber: Int) -> Bool {
              // Show the question.
-            let shuffledQuestions = array.shuffled()
+            let shuffledQuestions = vocabulary.shuffled()
 
             // Prints the question 
-            print("How do you say \(englishWord[questionNumber]) in spanish?")
+            print("How do you say \(englishWord) in spanish?")
             
             // Present possible answers.
             print("1: \(shuffledQuestions[0]). 2: \(shuffledQuestions[1]). 3: \(shuffledQuestions[2]). 4: \(shuffledQuestions[3]).")
             var gettingResponse = true
             while gettingResponse == true {
                             if let response = readLine(), let intResponse = Int(response) {
-                if shuffledQuestions[intResponse-1] == array[0] {
+                if shuffledQuestions[intResponse-1] == vocabulary[0] {
                     print("Correct")
                     gettingResponse = false
                 } else {
                     print("Incorrect, the correct answer was \(array[0])")
-                    incorrectCount = incorrectCount + 1
+                    return false
                     gettingResponse = false
                 }
                 
-                // If not, make a note of the question to ask again later.
-                questionNumber = questionNumber + 1
             } else {
                 print("Please enter a number the correlates to a response")
             }
             }
             // Check the if the user guessed the correct answer.
             }      
+
 
 
 @main
@@ -54,7 +53,13 @@ struct SwiftPlayground {
         /// Contains the english traslation of the correct answer.
         let englishWord: [String] = ["Hello", "Goodbye", "Thank you", "How are you?", "Black"]
 
+        var askingQuestions = true
 
+        var questionNumber = 0
+
+        while askingQuestions == true {
+
+        }
 
         /// The indices of the questions that the user got wrong.
         var incorrectIndices: [Int] = []
@@ -73,8 +78,6 @@ struct SwiftPlayground {
         var askingQuestions = true
 
 
-
-        
         if incorrectCount == 0 {
             print("You got them all right, congratulations!")
         } else {
