@@ -5,34 +5,34 @@
 
 import Foundation
 
+
+
 func askQuestions (vocabulary: [[String]], englishWord: [String], questionNumber: Int) -> Bool {
-             // Show the question.
-            let shuffledQuestions = vocabulary.shuffled()
+    // Show the question.
+    let shuffledQuestions = vocabulary[questionNumber].shuffled()
 
-            // Prints the question 
-            print("How do you say \(englishWord) in spanish?")
-            
-            // Present possible answers.
-            print("1: \(shuffledQuestions[0]). 2: \(shuffledQuestions[1]). 3: \(shuffledQuestions[2]). 4: \(shuffledQuestions[3]).")
-            var gettingResponse = true
-            while gettingResponse == true {
-                            if let response = readLine(), let intResponse = Int(response) {
-                if shuffledQuestions[intResponse-1] == vocabulary[0] {
-                    print("Correct")
-                    gettingResponse = false
-                } else {
-                    print("Incorrect, the correct answer was \(array[0])")
-                    return false
-                    gettingResponse = false
-                }
-                
-            } else {
-                print("Please enter a number the correlates to a response")
-            }
-            }
-            // Check the if the user guessed the correct answer.
-            }      
+    // Prints the question 
 
+    
+    while true {
+    // Present possible answers.
+    print("How do you say \(englishWord[questionNumber]) in spanish?")
+    print("1: \(shuffledQuestions[0]). 2: \(shuffledQuestions[1]). 3: \(shuffledQuestions[2]). 4: \(shuffledQuestions[3]).")
+        if let response = readLine(), let intResponse = Int(response) {
+        if shuffledQuestions[intResponse-1] == vocabulary[questionNumber][0] {
+            print("Correct")
+            return true
+        } else {
+            print("Incorrect, the correct answer was \(vocabulary[questionNumber][0])")
+            return false
+        }
+        
+    } else {
+        print("Please enter a number the correlates to a response")
+    }
+    }
+    
+}
 
 
 @main
@@ -57,33 +57,23 @@ struct SwiftPlayground {
 
         var questionNumber = 0
 
+        var correctQuestions = 0
+
+        var incorrectQuestions: [Int] = []
+
         while askingQuestions == true {
-
+            if questionNumber == 9 {
+                askingQuestions = false
+            }
+            let correctAwnser = askQuestions(vocabulary: vocabulary, englishWord: englishWord, questionNumber: questionNumber)
+            if correctAwnser == true {
+                correctQuestions = correctQuestions + 1
+            } else {
+                incorrectQuestions.append(1)
+            }
+            questionNumber = questionNumber + 1
         }
-
-        /// The indices of the questions that the user got wrong.
-        var incorrectIndices: [Int] = []
-
-        /// The number of questions that the user got wrong first time wrong
-        var incorrectCount = 0
-
-        /// The number of question the the user got right
-        var count = 0
-
-        /// The english words index numbers
-        var questionNumber = 0
         
-        var questionAmount = 10
-
-        var askingQuestions = true
-
-
-        if incorrectCount == 0 {
-            print("You got them all right, congratulations!")
-        } else {
-            
-        }
-    
-
+        print(incorrectQuestions)
     }
 }
