@@ -1,49 +1,62 @@
 // The Swift Programming Language
 // https://docs.swift.org/swift-book
 
+// Kumara stall.
+// Created on 26/04/23.
+// Created by Maxwell Huckson.
+
+/// A function that is used to get input from the user .
+/// - Parameters:
+///   - errorMessage: A message to display if the users input is invalid.
+///   - minimumNumber: The minimum number the user can enter.
+///   - maximumNumber: The maximum number the user can enter.
+/// - Returns: The users input.
+func getUserResponse(errorMesage: String, minimumNumber: Int, maximumNumber: Int) -> Int {
+    var gettingResponse = true
+    while gettingResponse == true {
+        if let response = readLine(), let intResponse = Int(response) {
+            if intResponse >= minimumNumber && intResponse <= maximumNumber {
+                gettingResponse = false
+                return intResponse
+            } else {
+                print(errorMesage)
+            }
+        } else {
+            print(errorMesage)
+        }
+    }
+}
+
+/// This function displays the stores menu to the .
+/// - Returns: what part of the store the user wants to view.
+func storeMenu() -> Int {
+    print("==== Kumara stall ====")
+    print("    1. Add stock")
+    print("    2. Record transaction")
+    print("    3. Show stock")
+    print("    4. Show transaction history")
+    print("    5. Exit")
+    print("    Please choose an option:")
+
+    // Error message to display in the user enters an invalid input.
+    let errorMessage = "Invail input, please enter an number that corresponds to one the the options listed above."
+
+    // The lowest number that corresponds to a valid response.
+    let minimumNumber = 1
+
+    // The highest number that corresponds to a valid response.
+    let maximumNumber = 5
+
+    // Calls the getUserResponse function to find what menu the user wants to open 
+    let usersChoice = getUserResponse(errorMesage: errorMessage, minimumNumber: minimumNumber, maximumNumber: maximumNumber)
+    return usersChoice
+}
+
+import Foundation
 
 @main
 struct SwiftPlayground {
     static func main() {
-        let dimensions: [String] = ["length", "width", "Height"]
-        var dimensionValues: [Double] = []
-        var currentDimetion = 0
-        var addingFurniture = true
-        while currentDimetion < 3 {
-            print("Enter room \(dimensions[currentDimetion]) in metres.")
-            if let input = readLine(), let dimension = Double(input) {
-                if dimension >= 1{
-                    dimensionValues.append(dimension)
-                currentDimetion = currentDimetion + 1
-                } else {
-                    print("Invaid response, please enter a positive number")
-                }
 
-            } else {
-            print("Invaid response, please enter a positive number")
-
-            }
-        }
-
-        let roomArea = dimensionValues[0] * dimensionValues[1]
-
-        let roomVolume = roomArea * dimensionValues[2] 
-
-        print("The area of your room is \(roomArea)m².")
-
-        print("The volume of your room is \(roomVolume)m³.")
-
-        while addingFurniture == true {
-            print("Would you like to add a piece of furniture to your room? (y/n)")
-            if let imput = readLine(), let response = String(imput) {
-                if response == "y" {
-                    print
-                } else if response == "n" {
-                    addingFurniture = false
-                }
-            } else {
-                print("Invalid imput. If you want to add a piece of furniture type y, if not type n")
-            }
-        }
     }
 }
