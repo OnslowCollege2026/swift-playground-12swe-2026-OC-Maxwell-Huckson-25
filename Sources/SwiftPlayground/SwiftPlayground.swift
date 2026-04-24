@@ -11,13 +11,13 @@
 ///   - minimumNumber: The minimum number the user can enter.
 ///   - maximumNumber: The maximum number the user can enter.
 /// - Returns: The users input.
-func getUserResponse(errorMesage: String, minimumNumber: Int, maximumNumber: Int) -> Int {
+func getUserResponse(errorMesage: String, minimumNumber: Double, maximumNumber: Double) -> Double {
     var gettingResponse = true
     while gettingResponse == true {
-        if let response = readLine(), let intResponse = Int(response) {
-            if intResponse >= minimumNumber && intResponse <= maximumNumber {
+        if let response = readLine(), let doubleResponse = Double(response) {
+            if doubleResponse >= minimumNumber && doubleResponse <= maximumNumber {
                 gettingResponse = false
-                return intResponse
+                return doubleResponse
             } else {
                 print(errorMesage)
             }
@@ -66,7 +66,7 @@ func storeMenu() -> Int {
             print(errorMessage)
         }
     }
-    
+
     return userResponse
 }
 
@@ -74,6 +74,7 @@ func storeMenu() -> Int {
 func addKumara(availableStorage: Double) -> Int {
     print("How many kilograms kumara do you want to add")
     print("You have enough space for up to \(availableStorage)kg of kumara")
+
 }
 
 
