@@ -38,7 +38,7 @@ func storeMenu() -> Int {
     let minimumNumber = 1
 
     // The highest number that corresponds to a valid response.
-    let maximumNumber = 5
+    let maximumNumber = 6
 
     // A variable to store what menu the user wants to access.  
     var userResponse = 0
@@ -48,7 +48,8 @@ func storeMenu() -> Int {
     print("    2. Record transaction")
     print("    3. Show current stock")
     print("    4. Show transaction history")
-    print("    5. Exit")
+    print("    5. Summarize sales information")
+    print("    6. Exit")
     print("    Please choose an option:")
 
 
@@ -70,13 +71,31 @@ func storeMenu() -> Int {
     return userResponse
 }
 
+///
+func addKumara(kumaraStock: Double) -> Double {
 
-func addKumara(availableStorage: Double) -> Int {
+    // Creates a constant for the minimum about of kumara the user can add.
+    let minimumKumara = 0.01
+
+    // Creates a constant for the avalible storage for the kumara.
+    let maximumKumara = 50.0 - kumaraStock
+
+    // Creates an error message to display if the user says they want to add an invalid amount of kumara
+    let errorMesage = "Invalid amount, please enter the amount of kumara you want to add (in kilograms, minimum 0.001) and that you have enough storage for."
+
     print("How many kilograms kumara do you want to add")
-    print("You have enough space for up to \(availableStorage)kg of kumara")
+    print("You have enough space for up to \(maximumKumara)kg of kumara")
 
+    let kumaraAdded = getUserResponse(errorMesage: errorMesage, minimumNumber: minimumKumara, maximumNumber: maximumKumara)
+
+    return kumaraAdded
 }
 
+func recordSale(kumaraStock: Double, bagsAmount: Int) -> Double {
+    print("How much kumara did the customer buy?")
+    
+    return 10
+}
 
 import Foundation
 
@@ -86,12 +105,17 @@ struct SwiftPlayground {
         // This variable is used to keep the shop running until the user wants to close it/
         var shopRunning = true
 
+        // This variable is used to keep track of the amount of kumara that is currently in stock
+        var kumaraStock = 0.0
+
         // This while loop will take the user back to the home menu, once they have made their change to the stall, until they wish to exit the stall.
         while shopRunning {
             let userResponse = storeMenu()
+
             // If the user presses 1 to add stock, it calls in the function that allows them to do that.
             if userResponse == 1 {
-
+                kumaraStock = kumaraStock + addKumara(kumaraStock: kumaraStock)
+                print("Successfully added kumara.")
             }
         }
     }
