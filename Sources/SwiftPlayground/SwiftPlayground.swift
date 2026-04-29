@@ -5,19 +5,41 @@
 // Created on 26/04/23.
 // Created by Maxwell Huckson.
 
-/// A function that is used to get input from the user .
+/// A function that is used to get a double input from the user .
 /// - Parameters:
 ///   - errorMessage: A message to display if the users input is invalid.
 ///   - minimumNumber: The minimum number the user can enter.
 ///   - maximumNumber: The maximum number the user can enter.
 /// - Returns: The users input.
-func getUserResponse(errorMesage: String, minimumNumber: Double, maximumNumber: Double) -> Double {
+func getDoubleResponse(errorMesage: String, minimumNumber: Double, maximumNumber: Double) -> Double {
     var gettingResponse = true
     while gettingResponse == true {
         if let response = readLine(), let doubleResponse = Double(response) {
             if doubleResponse >= minimumNumber && doubleResponse <= maximumNumber {
                 gettingResponse = false
                 return doubleResponse
+            } else {
+                print(errorMesage)
+            }
+        } else {
+            print(errorMesage)
+        }
+    }
+}
+
+/// A function that is used to get an int input from the user .
+/// - Parameters:
+///   - errorMessage: A message to display if the users input is invalid.
+///   - minimumNumber: The minimum number the user can enter.
+///   - maximumNumber: The maximum number the user can enter.
+/// - Returns: The users input.
+func getIntResponse(errorMesage: String, minimumNumber: Int, maximumNumber: Int) -> Int {
+    var gettingResponse = true
+    while gettingResponse == true {
+        if let response = readLine(), let intResponse = Int(response) {
+            if intResponse >= minimumNumber && intResponse <= maximumNumber {
+                gettingResponse = false
+                return intResponse
             } else {
                 print(errorMesage)
             }
@@ -41,32 +63,20 @@ func storeMenu() -> Int {
     let maximumNumber = 6
 
     // A variable to store what menu the user wants to access.  
-    var userResponse = 0
 
-    print("==== Kumara Stall ====")
-    print("    1. Add stock")
-    print("    2. Record transaction")
-    print("    3. Show current stock")
-    print("    4. Show transaction history")
-    print("    5. Summarize sales information")
-    print("    6. Exit")
-    print("    Please choose an option:")
+print("""
+==== Kumara Stall ====
+    1. Add stock
+    2. Record transaction
+    3. Show current stock
+    4. Show transaction history
+    5. Summarize sales information
+    6. Exit
+    Please choose an option:
+""")
 
-
-    // Calls the getUserResponse function to find what menu the user wants to open 
-    var gettingResponse = true
-    while gettingResponse == true {
-        if let response = readLine(), let intResponse = Int(response) {
-            if intResponse >= minimumNumber && intResponse <= maximumNumber {
-                userResponse = intResponse
-                gettingResponse = false
-            } else {
-                print(errorMessage)
-            }
-        } else {
-            print(errorMessage)
-        }
-    }
+    // Calls the getIntResponse function to find what menu the user wants to open 
+    let userResponse = getIntResponse(errorMesage: errorMessage, minimumNumber: minimumNumber, maximumNumber: maximumNumber)
 
     return userResponse
 }
@@ -75,25 +85,61 @@ func storeMenu() -> Int {
 func addKumara(kumaraStock: Double) -> Double {
 
     // Creates a constant for the minimum about of kumara the user can add.
-    let minimumKumara = 0.01
+    let minimumKumara = 0.1
 
     // Creates a constant for the avalible storage for the kumara.
     let maximumKumara = 50.0 - kumaraStock
 
     // Creates an error message to display if the user says they want to add an invalid amount of kumara
-    let errorMesage = "Invalid amount, please enter the amount of kumara you want to add (in kilograms, minimum 0.001) and that you have enough storage for."
+    let errorMesage = "Invalid amount, please enter the amount of kumara you want to add (in kilograms, minimum 0.1) and that you have enough storage for."
 
-    print("How many kilograms kumara do you want to add")
-    print("You have enough space for up to \(maximumKumara)kg of kumara")
+    print("""
+    How many kilograms kumara do you want to add
+    You have enough space for up to \(maximumKumara)kg of kumara
+    """)
 
-    let kumaraAdded = getUserResponse(errorMesage: errorMesage, minimumNumber: minimumKumara, maximumNumber: maximumKumara)
+    let kumaraAdded = getDoubleResponse(errorMesage: errorMesage, minimumNumber: minimumKumara, maximumNumber: maximumKumara)
 
     return kumaraAdded
 }
 
-func recordSale(kumaraStock: Double, bagsAmount: Int) -> Double {
-    print("How much kumara did the customer buy?")
-    
+func recordSale(kumaraStock: Double, bagsAmount: Int) -> [Double] {
+
+    // Creates a constant for the minimum about of bags the customer can buy.
+    let minimumBags = 1
+
+    // Creates a constant for the avalible amount of kumara in stock (the maximum the user can buy).
+    let maximumBags = bagsAmount
+
+    // Creates an error message to display if the buyer tries to buy an invalid amount of kumara
+    let BagsErrorMesage = "Invalid amount, please enter the amount of bags the customer wants to buy (minimum 1) that we have enough of."
+
+
+    // Creates a constant for the minimum about of kumara the customer can buy.
+    let minimumKumara = 0.1
+
+    // Creates a constant for the avalible amount of kumara in stock (the maximum the user can buy).
+    let maximumKumara = 50.0 - kumaraStock
+
+    // Creates an error message to display if the buyer tries to buy an invalid amount of kumara
+    let KumaraErrorMesage = "Invalid amount, please enter the amount of kumara the customer wants to buy (in kilograms, minimum 0.1) that we have in stock and we have enoug bags for."
+
+    print("""
+    How many bags did the customer buy?
+    You have \(bagsAmount) bags left.
+    Each bag can hold 5kg of kumara.
+    """)
+
+    let bagsBought = getIntResponse(errorMesage: BagsErrorMesage, minimumNumber: minimumBags, maximumNumber: maximumBags)
+
+    let bagStorage = bagsBought*5
+
+    print("""
+    How much kumara did the customer buy?
+    With the amount of bags bought the customer has enough storage for \(bagStorage)kg of kumara.
+    There is \(kumaraStock)kg of kumara in stock
+    """)
+    let kumaraBought = getDoubleResponse(errorMesage: KumaraErrorMesage, minimumNumber: minimumKumara, maximumNumber: maximumKumara)
     return 10
 }
 
@@ -116,6 +162,10 @@ struct SwiftPlayground {
             if userResponse == 1 {
                 kumaraStock = kumaraStock + addKumara(kumaraStock: kumaraStock)
                 print("Successfully added kumara.")
+            } else if userResponse == 2 {
+
+            } else {
+                shopRunning = false
             }
         }
     }
