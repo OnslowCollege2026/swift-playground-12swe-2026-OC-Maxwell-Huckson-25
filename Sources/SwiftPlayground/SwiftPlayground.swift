@@ -114,7 +114,6 @@ func recordSale(kumaraStock: Double, bagsAmount: Int) -> [Double] {
     // Creates an error message to display if the buyer tries to buy an invalid amount of kumara
     let BagsErrorMesage = "Invalid amount, please enter the amount of bags the customer wants to buy (minimum 1) that we have enough of."
 
-
     // Creates a constant for the minimum about of kumara the customer can buy.
     let minimumKumara = 0.1
 
@@ -122,15 +121,22 @@ func recordSale(kumaraStock: Double, bagsAmount: Int) -> [Double] {
     let maximumKumara = 50.0 - kumaraStock
 
     // Creates an error message to display if the buyer tries to buy an invalid amount of kumara
-    let KumaraErrorMesage = "Invalid amount, please enter the amount of kumara the customer wants to buy (in kilograms, minimum 0.1) that we have in stock and we have enoug bags for."
+    let KumaraErrorMesage = "Invalid amount, please enter the amount of kumara the customer wants to buy (in kilograms, minimum 0.1) that we have in stock and we have enough bags for."
+
+    var saleDetails: [Double] = []
 
     print("""
+    There are \(bagsAmount) bags left.
     How many bags did the customer buy?
-    You have \(bagsAmount) bags left.
     Each bag can hold 5kg of kumara.
     """)
 
     let bagsBought = getIntResponse(errorMesage: BagsErrorMesage, minimumNumber: minimumBags, maximumNumber: maximumBags)
+
+    saleDetails.append(Double(bagsBought))
+    saleDetails.append(Double(bagsBought)*0.2)
+    
+    print("Successfully recorded purchasing of \(bagsBought) bags for $\(Double(bagsBought)*0.2)")
 
     let bagStorage = bagsBought*5
 
@@ -140,7 +146,11 @@ func recordSale(kumaraStock: Double, bagsAmount: Int) -> [Double] {
     There is \(kumaraStock)kg of kumara in stock
     """)
     let kumaraBought = getDoubleResponse(errorMesage: KumaraErrorMesage, minimumNumber: minimumKumara, maximumNumber: maximumKumara)
-    return 10
+
+    saleDetails.append(Double(kumaraBought))
+    saleDetails.append(Double(kumaraBought)*3)
+
+    return saleDetails
 }
 
 import Foundation
@@ -154,6 +164,16 @@ struct SwiftPlayground {
         // This variable is used to keep track of the amount of kumara that is currently in stock
         var kumaraStock = 0.0
 
+        var bagsAmount = 5000
+
+        let minimumKumaraForTransaction = 0.0
+
+        let minimumBagsForTransaction = 0
+
+        var salesHistory: [[Double]] = [
+
+        ]
+
         // This while loop will take the user back to the home menu, once they have made their change to the stall, until they wish to exit the stall.
         while shopRunning {
             let userResponse = storeMenu()
@@ -163,7 +183,11 @@ struct SwiftPlayground {
                 kumaraStock = kumaraStock + addKumara(kumaraStock: kumaraStock)
                 print("Successfully added kumara.")
             } else if userResponse == 2 {
-
+                guard kumaraStock == minimumKumaraForTransaction else {
+                    salesHistory.append(recordSale(kumaraStock: kumaraStock, bagsAmount: bagsAmount))
+                    continue
+                }
+                    print("You don't have any kumara to sell")
             } else {
                 shopRunning = false
             }
