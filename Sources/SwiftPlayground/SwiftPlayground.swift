@@ -141,16 +141,22 @@ func recordSale(kumaraStock: Double, bagsAmount: Int) -> [Double] {
     let bagStorage = bagsBought*5
 
     print("""
-    How much kumara did the customer buy?
     With the amount of bags bought the customer has enough storage for \(bagStorage)kg of kumara.
-    There is \(kumaraStock)kg of kumara in stock
+    There is \(kumaraStock)kg of kumara in stock.
+    How much kumara did the customer buy?
     """)
     let kumaraBought = getDoubleResponse(errorMesage: KumaraErrorMesage, minimumNumber: minimumKumara, maximumNumber: maximumKumara)
 
-    saleDetails.append(Double(kumaraBought))
-    saleDetails.append(Double(kumaraBought)*3)
+    print("Succsessfully recorded purchasing of \(kumaraBought)kg of kumara for $\(kumaraBought*3)")
+
+    saleDetails.append(kumaraBought)
+    saleDetails.append(kumaraBought*3)
 
     return saleDetails
+}
+
+func viewTransactionHistory(salesHistory: [[Double]]) {
+    
 }
 
 import Foundation
@@ -183,11 +189,20 @@ struct SwiftPlayground {
                 kumaraStock = kumaraStock + addKumara(kumaraStock: kumaraStock)
                 print("Successfully added kumara.")
             } else if userResponse == 2 {
-                guard kumaraStock == minimumKumaraForTransaction else {
+                guard kumaraStock == minimumKumaraForTransaction || bagsAmount == 0 else {
                     salesHistory.append(recordSale(kumaraStock: kumaraStock, bagsAmount: bagsAmount))
                     continue
                 }
-                    print("You don't have any kumara to sell")
+                    print("You either don't have any kumara to sell or don't have any bags")
+            } else if userResponse == 3 {
+                print ("""
+                You have \(bagsAmount) bags left.
+                You have \(kumaraStock)kg of kumara left.
+                """)
+            } else if userResponse == 4 {
+
+            } else if userResponse == 4 {
+
             } else {
                 shopRunning = false
             }
