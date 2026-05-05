@@ -134,7 +134,6 @@ func recordSale(kumaraStock: Double, bagsAmount: Int) -> [Double] {
     let bagsBought = getIntResponse(errorMesage: BagsErrorMesage, minimumNumber: minimumBags, maximumNumber: maximumBags)
 
     saleDetails.append(Double(bagsBought))
-    saleDetails.append(Double(bagsBought)*0.2)
     
     print("Successfully recorded purchasing of \(bagsBought) bags for $\(Double(bagsBought)*0.2)")
 
@@ -150,13 +149,25 @@ func recordSale(kumaraStock: Double, bagsAmount: Int) -> [Double] {
     print("Succsessfully recorded purchasing of \(kumaraBought)kg of kumara for $\(kumaraBought*3)")
 
     saleDetails.append(kumaraBought)
-    saleDetails.append(kumaraBought*3)
 
     return saleDetails
 }
 
 func viewTransactionHistory(salesHistory: [[Double]]) {
     
+}
+
+func
+
+func calculateSalesAverages(table: [[Double]], column: Int) -> Double {
+    var average = 0.0
+    var numberAmounts = 0.0
+    (0...4).forEach { row in
+        average = average + table[row][column]
+        numberAmounts = numberAmounts + 1
+    
+    }
+    return average/numberAmounts
 }
 
 import Foundation
@@ -179,6 +190,10 @@ struct SwiftPlayground {
         var salesHistory: [[Double]] = [
 
         ]
+        
+        var salesAverages: [Double] = []
+
+        var totalSales = 0
 
         // This while loop will take the user back to the home menu, once they have made their change to the stall, until they wish to exit the stall.
         while shopRunning {
@@ -191,9 +206,10 @@ struct SwiftPlayground {
             } else if userResponse == 2 {
                 guard kumaraStock == minimumKumaraForTransaction || bagsAmount == 0 else {
                     salesHistory.append(recordSale(kumaraStock: kumaraStock, bagsAmount: bagsAmount))
+                    totalSales = totalSales + 1
                     continue
                 }
-                    print("You either don't have any kumara to sell or don't have any bags")
+                print("You either don't have any kumara to sell or don't have any bags")
             } else if userResponse == 3 {
                 print ("""
                 You have \(bagsAmount) bags left.
@@ -201,8 +217,11 @@ struct SwiftPlayground {
                 """)
             } else if userResponse == 4 {
 
-            } else if userResponse == 4 {
-
+            } else if userResponse == 5 {
+                (1...4).forEach { column in
+                    salesAverages.append(calculateSalesAverages(table: [salesAverages], column: column))
+                }
+                print("On average you sell \(salesAverages[2])kg of kumara in \(salesAverages[1]) bags for a total of \(salesAverages[1]*0.2+salesAverages[2]*3)")
             } else {
                 shopRunning = false
             }
